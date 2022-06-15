@@ -16,8 +16,8 @@ interface MappingProps {
 const Mapping: React.FC<MappingProps> = ({ mapping, onDelete }: MappingProps) => {
   return (
     <ButtonGroup>
-      <Button icon="times" variant="link" size="sm" onClick={onDelete} />
-      <Button variant="link" size="sm">
+      <Button icon="times" variant="destructive" size="sm" onClick={onDelete} />
+      <Button variant="destructive" size="sm">
         {mapping}
       </Button>
     </ButtonGroup>
@@ -71,7 +71,7 @@ export const MappingsInput: React.FC<MappingsInputProps> = ({ mappings, onChange
   };
   const [state, setState] = useState(sortableMappings);
   return (
-    <>
+    <>        
       <ReactSortable list={state} setList={setState}>
         {sortableMappings.map((mapping, index) => (
           <Mapping mapping={mapping.value} key={index} onDelete={() => deleteMapping(index)} />

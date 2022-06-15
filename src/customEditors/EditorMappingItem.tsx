@@ -27,12 +27,11 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
     <>
       <HorizontalGroup>
         Mapping {index + 1}
-        <IconButton name="trash-alt" size="sm" surface="header" onClick={() => onDelete(index)} />
+        <IconButton name="trash-alt" size="sm" onClick={() => onDelete(index)} />
       </HorizontalGroup>
 
       <Field label="ID">
         <Input
-          css=""
           value={mapping.id}
           onChange={(event) => {
             updateMapping((mapping) => {
@@ -44,7 +43,6 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Description">
         <TextArea
-          css=""
           value={mapping.description}
           onChange={(event) => {
             updateMapping((mapping) => {
@@ -68,7 +66,6 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Compare to">
         <Input
-          css=""
           value={mapping.compareTo}
           onChange={(event) => {
             updateMapping((mapping) => {
@@ -114,7 +111,6 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Show">
         <Switch
-          css=""
           value={mapping.values.visible}
           onChange={(event) => {
             updateMapping((mapping) => {
@@ -126,7 +122,6 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Bold">
         <Switch
-          css=""
           value={mapping.values.bold}
           onChange={(event) => {
             updateMapping((mapping) => {
@@ -138,7 +133,6 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Background Blink">
         <Switch
-          css=""
           value={mapping.values.backgroundBlink}
           onChange={(event) => {
             updateMapping((mapping) => {
@@ -150,7 +144,6 @@ export const EditorMappingItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Value Blink">
         <Switch
-          css=""
           value={mapping.values.valueBlink}
           onChange={(event) => {
             updateMapping((mapping) => {

@@ -26,13 +26,12 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
     <>
       <HorizontalGroup>
         Sensor {props.index + 1}
-        <IconButton name="trash-alt" size="sm" surface="header" onClick={() => onDelete(index)} />
+        <IconButton name="trash-alt" size="sm"onClick={() => onDelete(index)} />
       </HorizontalGroup>
 
       {/* <HorizontalGroup> */}
       <Field label="Query ID" description="Set this as query ID OR the query alias below">
         <Input
-          css=""
           value={sensor.query.id}
           onChange={(event) => {
             updateSensor((sensor) => {
@@ -44,7 +43,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Query Alias" description="If both alias and ID are set, ID has precedence">
         <Input
-          css=""
           value={sensor.query.alias}
           onChange={(event) => {
             updateSensor((sensor) => {
@@ -60,7 +58,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
         description="Select IDs of mappings you want to use for this sensor. First valid mapping will be applied. List can be reordered by dragging."
       >
         <MappingsInput
-          css=""
           mappings={sensor.mappingIds}
           onChange={(mappings) => {
             updateSensor((sensor) => {
@@ -72,7 +69,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Name">
         <Input
-          css=""
           value={sensor.name}
           onChange={(event) => {
             updateSensor((sensor) => {
@@ -84,7 +80,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Icon" description="Write a valid FontAwesome icon">
         <Input
-          css=""
           value={sensor.iconName}
           onChange={(event) => {
             updateSensor((sensor) => {
@@ -96,7 +91,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Link">
         <Input
-          css=""
           value={sensor.link}
           onChange={(event) => {
             updateSensor((sensor) => {
@@ -108,7 +102,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Show">
         <Switch
-          css=""
           value={sensor.visible}
           onChange={(event) => {
             updateSensor((sensor) => {
@@ -167,7 +160,6 @@ export const EditorSensorItem: React.FC<Props> = (props: Props) => {
 
       <Field label="Decimals">
         <Input
-          css=""
           value={sensor.decimals}
           type="number"
           onChange={(event) => {

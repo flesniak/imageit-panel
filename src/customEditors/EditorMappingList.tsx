@@ -1,7 +1,9 @@
 import React from 'react';
-import { css } from 'emotion';
-import { stylesFactory, Button, useTheme } from '@grafana/ui';
+
+import { css } from '@emotion/css';
+import { Button, useStyles } from '@grafana/ui';
 import { GrafanaTheme, SelectableValue, StandardEditorProps } from '@grafana/data';
+
 import { EditorMappingItem } from './EditorMappingItem';
 import { Mapping } from 'types/Mapping';
 import MappingOperators from 'MappingOperators';
@@ -24,8 +26,7 @@ export const EditorMappingList: React.FC<Props> = (props: Props) => {
   const onChange = props.onChange;
   const mappings = props.value;
 
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles(getStyles);
 
   const defaultNewMapping: Mapping = {
     id: getRandomID(),
@@ -87,14 +88,16 @@ export const EditorMappingList: React.FC<Props> = (props: Props) => {
   );
 };
 
-const getStyles = stylesFactory((theme: GrafanaTheme) => ({
-  mappingItemWrapper: css`
-    margin-bottom: 16px;
-    padding: 8px;
-    background-color: ${theme.colors.bg2};
-  `,
+const getStyles = (theme: GrafanaTheme) => {
+  return {
+    mappingItemWrapper: css`
+      margin-bottom: 16px;
+      padding: 8px;
+      background-color: ${theme.colors.bg2};
+    `,
 
-  addButtonStyle: css`
-    /* margin-left: 8px; */
-  `,
-}));
+    addButtonStyle: css`
+      /* margin-left: 8px; */
+    `,
+  };
+};

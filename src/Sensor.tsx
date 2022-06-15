@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { clone, merge } from 'lodash';
-import { css, cx, keyframes } from 'emotion';
+import { css, cx, keyframes } from '@emotion/css';
 import Draggable, { DraggableEvent, DraggableData, ControlPosition } from 'react-draggable';
-import { stylesFactory } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import SensorType from './types/Sensor';
 import MappingOperators from 'MappingOperators';
 import { Mapping } from 'types/Mapping';
-import { formattedValueToString, getValueFormat } from '@grafana/data';
+import { formattedValueToString, getValueFormat, GrafanaTheme } from '@grafana/data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
 
@@ -40,7 +40,7 @@ export const Sensor: React.FC<Props> = (props: Props) => {
   let sensor = clone(props.sensor) as SensorType & Mapping['values'];
   let value = clone(props.value);
 
-  const styles = getStyles();
+  const styles = useStyles(getStyles);
 
   const [isMouseOver, setIsMouseOver] = useState(false);
 
@@ -138,7 +138,7 @@ const blink = keyframes`
   }
 `;
 
-const getStyles = stylesFactory(() => {
+const getStyles = (theme: GrafanaTheme) => {
   return {
     container: css`
       position: absolute;
@@ -162,4 +162,4 @@ const getStyles = stylesFactory(() => {
       font-weight: bold;
     `,
   };
-});
+};

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PanelProps, getFieldDisplayValues, ReducerID } from '@grafana/data';
+import { PanelProps, getFieldDisplayValues, ReducerID, GrafanaTheme } from '@grafana/data';
 import { SimpleOptions } from './types/SimpleOptions';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import { uniqueId, cloneDeep } from 'lodash';
-// import { stylesFactory, useTheme } from '@grafana/ui';
-import { stylesFactory, useTheme } from '@grafana/ui';
+
+import { useTheme2, useStyles } from '@grafana/ui';
 import { Sensor } from './Sensor';
 import { Mapping } from './types/Mapping';
 import SensorType from './types/Sensor';
@@ -23,8 +23,8 @@ export const ImageItPanel: React.FC<Props> = ({
   replaceVariables,
 }) => {
   const { forceImageRefresh, lockSensors, mappings, sensors, sensorsTextSize } = options;
-  const theme = useTheme();
-  const styles = getStyles();
+  const theme = useTheme2();
+  const styles = useStyles(getStyles);
   library.add(fas);
 
   const imageRef = useRef<HTMLImageElement>(null);
@@ -136,7 +136,7 @@ export const ImageItPanel: React.FC<Props> = ({
   );
 };
 
-const getStyles = stylesFactory(() => {
+const getStyles = (theme: GrafanaTheme) => {
   return {
     wrapper: css`
       width: 100%;
@@ -160,4 +160,4 @@ const getStyles = stylesFactory(() => {
       padding: 10px;
     `,
   };
-});
+};
