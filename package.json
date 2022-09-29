@@ -1,5 +1,5 @@
 {
-  "name": "pierosavi-imageit-panel",
+  "name": "imageit-panel",
   "version": "1.0.6",
   "description": "Add Measurements to a Picture in Grafana",
   "scripts": {
@@ -16,7 +16,7 @@
     "panel"
   ],
   "author": "pierosavi",
-  "repository": "github:/pierosavi/pierosavi-imageit-panel",
+  "repository": "github:/flesniak/imageit-panel",
   "license": "Apache-2.0",
   "devDependencies": {
     "@grafana/data": "9.0.0",
