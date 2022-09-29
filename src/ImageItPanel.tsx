@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PanelProps, getFieldDisplayValues, ReducerID, GrafanaTheme } from '@grafana/data';
+import { PanelProps, getFieldDisplayValues, ReducerID, GrafanaTheme, parseLabels, matchAllLabels } from '@grafana/data';
 import { SimpleOptions } from './types/SimpleOptions';
 import { css, cx } from '@emotion/css';
 import { uniqueId, cloneDeep } from 'lodash';
@@ -77,8 +77,11 @@ export const ImageItPanel: React.FC<Props> = ({
           sensors.map((sensor: SensorType, index: number) => {
             // Get serie for sensor based on refId or alias fields
             // let value: Number | undefined = undefined;
-            const serie = data.series.find((serie) =>
-              sensor.query.id ? sensor.query.id === serie.refId : sensor.query.alias === serie.name
+            let labels = parseLabels(sensor.query.alias);
+            const serie = data.series.find((serie) => //{
+              sensor.query.id === serie.refId && (!sensor.query.alias || serie.fields.find((field) =>
+                field.labels !== undefined && matchAllLabels(labels, field.labels)
+              ))
             );
 
             let value = undefined;
