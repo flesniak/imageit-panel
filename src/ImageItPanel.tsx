@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PanelProps, getFieldDisplayValues, ReducerID, GrafanaTheme, parseLabels, matchAllLabels } from '@grafana/data';
+import { PanelProps, getFieldDisplayValues, ReducerID, GrafanaTheme } from '@grafana/data';
 import { SimpleOptions } from './types/SimpleOptions';
 import { css, cx } from '@emotion/css';
 import { uniqueId, cloneDeep } from 'lodash';
@@ -77,27 +77,40 @@ export const ImageItPanel: React.FC<Props> = ({
           sensors.map((sensor: SensorType, index: number) => {
             // Get serie for sensor based on refId or alias fields
             // let value: Number | undefined = undefined;
-            let labels = parseLabels(sensor.query.alias);
-            const serie = data.series.find((serie) => //{
-              sensor.query.id === serie.refId && (!sensor.query.alias || serie.fields.find((field) =>
-                field.labels !== undefined && matchAllLabels(labels, field.labels)
-              ))
+            const serie = data.series.find((serie) =>
+              serie.fields.find((field) =>
+                (!sensor.query.id || sensor.query.id === field.name)
+              )
             );
 
             let value = undefined;
 
             if (serie !== undefined) {
-              const fieldDisplay = getFieldDisplayValues({
-                data: [serie],
-                reduceOptions: {
-                  calcs: [ReducerID.last],
-                },
-                fieldConfig,
-                replaceVariables,
-                theme,
-              })[0];
+              if (sensor.query.id === "app") {
+                let field = serie.fields.find((field) => {
+                  let name_match = !sensor.query.id || sensor.query.id === field.name;
+                  let label_match = !sensor.query.alias || !field.labels || field.labels["tile"] === sensor.query.alias;
+                  return name_match && label_match;
+                });
+                if (field && field.labels) {
+                  value = field.values.toArray()[field.values.length-1];
+                }
+              } else {
+                const fieldDisplays = getFieldDisplayValues({
+                  data: [serie],
+                  reduceOptions: {
+                    calcs: [ReducerID.last],
+                  },
+                  fieldConfig,
+                  replaceVariables,
+                  theme,
+                });
 
-              value = fieldDisplay.display.numeric;
+                let fieldDisplay = fieldDisplays.find((field) => field.display.title && field.display.title.includes(sensor.query.alias));
+                if (fieldDisplay) {
+                    value = fieldDisplay.display.numeric;
+                }
+              }
             }
 
             // Get mappings by ids
